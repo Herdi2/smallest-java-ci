@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-import git, pytest, os
+import git, pytest, os, shutil
 
 app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
@@ -10,7 +10,7 @@ def webhook_receiver():
     ssh_url = data['repository']['ssh_url']
     name = data['repository']['name']
     if os.path.exists(name):
-        os.system(f"rm -r {name}/")
+        shutil.rmtree(name)
     print("data:", ssh_url)
     # Clone repo to current directory
     git.Git(None).clone(ssh_url)    
@@ -19,7 +19,7 @@ def webhook_receiver():
     print(retcode)
     # Cleanup
     if os.path.exists(name):
-        os.system(f"rm -r {name}/")
+        shutil.rmtree(name)
     return jsonify({'message': 'Webhook received successfully'}), 200
 if __name__ == '__main__':
     app.run(debug=True)
