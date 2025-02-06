@@ -4,13 +4,13 @@ import git, pytest, os
 app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook_receiver():
-    if os.path.exists(name):
-        os.system(f"rm -r {name}/")
     # Get reponse data
     data = request.json
     # Get ssh url and dir name
     ssh_url = data['repository']['ssh_url']
     name = data['repository']['name']
+    if os.path.exists(name):
+        os.system(f"rm -r {name}/")
     print("data:", ssh_url)
     # Clone repo to current directory
     git.Git(None).clone(ssh_url)    
