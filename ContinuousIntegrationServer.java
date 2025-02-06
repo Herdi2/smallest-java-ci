@@ -42,7 +42,7 @@ public class ContinuousIntegrationServer extends AbstractHandler
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception
     {
-        Server server = new Server(8080);
+        Server server = new Server(1234);
         server.setHandler(new ContinuousIntegrationServer()); 
         server.start();
         server.join();
