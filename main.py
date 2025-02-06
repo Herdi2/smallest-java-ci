@@ -9,6 +9,7 @@ def webhook_receiver():
     # Get ssh url and dir name
     ssh_url = data['repository']['ssh_url']
     name = data['repository']['name']
+    # Cleanup
     if os.path.exists(name):
         shutil.rmtree(name)
     print("data:", ssh_url)
