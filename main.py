@@ -17,7 +17,7 @@ def webhook_receiver():
     print(retcode)
     # Cleanup
     if os.path.exists(name):
-        os.remove(f"rm -r {name}/")
+        os.system(f"rm -r {name}/")
     return jsonify({'message': 'Webhook received successfully'}), 200
 if __name__ == '__main__':
     app.run(debug=True)
